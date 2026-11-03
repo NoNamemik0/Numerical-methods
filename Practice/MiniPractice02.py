@@ -18,15 +18,15 @@ def f_exact(x):
 
 xs = [10**10, 10**12, 10**14]
 
-print("Результаты лабораторного эксперимента:")
+print(f"{'x':<7} | {'Плохой способ':<15} | {'Хороший способ':<15} | {'Ошибка bad':<10} | {'Ошибка good':<10}")
+print("-" * 70)
+
 for x in xs:
     bad_res = f_bad(x)
     good_res = f_good(x)
     exact_res = f_exact(x)
     
-    print(f"\nПри x = {x}:")
-    print(f"  Плохой способ:   {bad_res:.12f}")
-    print(f"  Хороший способ:  {good_res:.12f}")
-    print(f"  Эталон (mpmath): {exact_res:.12f}")
-    print(f"  -> Относительная ошибка ПЛОХОГО: {relative_error(bad_res, exact_res)}")
-    print(f"  -> Относительная ошибка ХОРОШЕГО: {relative_error(good_res, exact_res)}")
+    err_bad = relative_error(bad_res, exact_res)
+    err_good = relative_error(good_res, exact_res)
+
+    print(f"1e+{int(math.log10(x)):<2} | {bad_res:<15.12f} | {good_res:<15.12f} | {err_bad:<10.2e} | {err_good:<10.2e}")
